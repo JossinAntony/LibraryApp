@@ -104,6 +104,9 @@ app.get('/books',(req,res)=>{
     });
 });
 
+app.get('/booksingle',(req,res)=>{
+    res.render('booksingle',{title:"Book", nav:navlink});
+});
 
 app.listen(process.env.PORT || 3000,()=>{
     console.log("Server running at http://localhost:3000")
