@@ -112,6 +112,15 @@ app.get('/booksingle/:id',(req,res)=>{
     });
 });
 
+// app.get('/booksingle',(req,res)=>{
+//     const x = req.params.id;
+//     res.render('booksingle',
+//     {
+//         title:"Book", nav:navlink, 'book_single':library[1]
+//     });
+// });
+
+
 app.listen(process.env.PORT || 3000,()=>{
     console.log("Server running at http://localhost:3000")
 })
