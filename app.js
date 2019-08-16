@@ -104,8 +104,12 @@ app.get('/books',(req,res)=>{
     });
 });
 
-app.get('/booksingle',(req,res)=>{
-    res.render('booksingle',{title:"Book", nav:navlink});
+app.get('/booksingle/:id',(req,res)=>{
+    const x = req.params.id;
+    res.render('booksingle',
+    {
+        title:"Book", nav:navlink, 'book_single':library[x]
+    });
 });
 
 app.listen(process.env.PORT || 3000,()=>{
