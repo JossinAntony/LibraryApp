@@ -89,6 +89,79 @@ library=[
     }
 ];
 
+authors=[
+    {
+        'name':'Jane Austen',
+        'dob':'December 16, 1775',
+        'country':'England',
+        'otherworks':'Emma, Persuasion, Lady Susan',
+        'src':'/img/austen.jpg',
+    },
+    {
+        'name':'Kazuo Ishiguro',
+        'dob':'November 8, 1954',
+        'country':'Japan',
+        'otherworks':'The Remains of the Day, The Unconsoled, When We Were Orphans',
+        'src':'/img/ishiguro.jpg',
+    },
+    {
+        'name':'Toni Morrison',
+        'dob':'February 18, 1931',
+        'country':'USA',
+        'otherworks':'Song of Solomon, Tar Baby, The Bluest Eye',
+        'src':'/img/toni.jpg',
+    },
+    {
+        'name':'Chinua Achebe',
+        'dob':'November 16, 1930',
+        'country':'Japan',
+        'otherworks':'No Longer at Ease, Arrow of God, A Man of the People, Anthills of the Savannah',
+        'src':'/img/achebe.jpg',
+    },
+    {
+        'name':'Mary Shelly',
+        'dob':'1797',
+        'country':'England',
+        'otherworks':'The Last Man, The Fortunes of Perkin Warbeck, Lodore, Falkner',
+        'src':'/img/shelley.jpg',
+    },
+    {
+        'name':'Arundhati Roy',
+        'dob':'November 24, 1961',
+        'country':'India',
+        'otherworks':'he End of Imagination, The Cost of Living. Flamingo, The Greater Common Good, The Algebra of Infinite Justice',
+        'src':'/img/roy.jpg',
+    },
+    {
+        'name':'Harper Lee',
+        'dob':'April 28, 1926',
+        'country':'USA',
+        'otherworks':'Go Set a Watchman',
+        'src':'/img/lee.jpg',
+    },
+    {
+        'name':'F. Scott Fitzgerald',
+        'dob':'September 24, 1896',
+        'country':'Japan',
+        'otherworks':'This Side of Paradise, The Beautiful and Damned, Tender is the Night, The Last Tycoon',
+        'src':'/img/scott.jpg',
+    },
+    {
+        'name':'Margaret Atwood',
+        'dob':'November 18, 1939',
+        'country':'Canada',
+        'otherworks':'The Edible Woman, Surfacing, Lady Oracle, Life Before Man',
+        'src':'/img/atwood.jpg',
+    },
+    {
+        'name':'Bell Hooks',
+        'dob':'November 16, 1930',
+        'country':'Japan',
+        'otherworks':'Bone Black: Memories of Girlhood, Wounds of passion: a writing life, Remembered rapture: the writer at work, Justice: childhood love lessons',
+        'src':'/img/hooks.jpg',
+    }
+];
+
 app.get('/',(req,res)=>{
     res.render('books',
     {
@@ -110,6 +183,13 @@ app.get('/booksingle/:id',(req,res)=>{
     {
         title:"Book", nav:navlink, 'book_single':library[x]
     });
+});
+
+app.get('/authors',(req, res)=>{
+    res.render('authors',
+        {
+            nav:navlink, 'title':'Authors', authors
+        });
 });
 
 // app.get('/booksingle',(req,res)=>{
