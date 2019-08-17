@@ -129,7 +129,7 @@ authors=[
         'name':'Arundhati Roy',
         'dob':'November 24, 1961',
         'country':'India',
-        'otherworks':'he End of Imagination, The Cost of Living. Flamingo, The Greater Common Good, The Algebra of Infinite Justice',
+        'otherworks':'The End of Imagination, The Cost of Living. Flamingo, The Greater Common Good, The Algebra of Infinite Justice',
         'src':'/img/roy.jpg',
     },
     {
@@ -190,6 +190,13 @@ app.get('/authors',(req, res)=>{
         {
             nav:navlink, 'title':'Authors', authors
         });
+});
+
+app.get('/authorsingle/:id',(req, res)=>{
+    i = req.params.id;
+    res.render('authorsingle',{
+        title:'Author', nav:navlink, 'author_single':authors[i]
+    })
 });
 
 // app.get('/booksingle',(req,res)=>{
