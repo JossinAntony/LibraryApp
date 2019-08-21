@@ -1,6 +1,7 @@
 const Express=require('express');
 const Mongoose = require('mongoose');
 const bodyParser = require('body-parser')
+const request = require('request');
 
 var app=new Express();
 
@@ -195,7 +196,7 @@ app.post('/saveBooksAPI',(req,res)=>{
             res.send(error);
         }else{
             res.send("<script>alert('New book added to library!')</script>")
-            console.log(data);
+            //console.log(data);
         }
     })
 });
@@ -207,7 +208,7 @@ app.get('/retrieveBooksAPI',(req,res)=>{
             throw error;
             res.send(error);
         }else{
-            console.log(data);
+            //console.log(data);
             res.send(data)
         }
     })
@@ -215,17 +216,35 @@ app.get('/retrieveBooksAPI',(req,res)=>{
 
 //apiLink
 
-const retrieveBooksAPILink = 'http://localhost:3000/retrieveBooks';
+const retrieveBooksAPILink = 'http://localhost:3000/retrieveBooksAPI';
+
+app.get('/books',(req,res)=>{
+    request(retrieveBooksAPILink,(error,response,body)=>{
+        if(error){
+            throw error;
+            res.send(error);
+        }else{
+            var data = JSON.parse(body);
+            //console.log(data);
+            res.render('books',{nav:navlink, title:"Books",'library':data})
+        }
+    })
 
 
+
+
+    // res.render('books',{
+    //     nav:navlink, title:"Books", library
+    // });
+});
 
 ////////////////
-app.get('/books',(req,res)=>{
-    res.render('books',
-    {
-        nav:navlink, title:"Books", library
-    });
-});
+// app.get('/books',(req,res)=>{
+//     res.render('books',
+//     {
+//         nav:navlink, title:"Books", library
+//     });
+// });
 
 app.get('/',(req,res)=>{
     res.render('books',
