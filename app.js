@@ -12,8 +12,15 @@ navlink=[
     },{
         'link': '/authors',
         'title': 'Authors'
+    },{
+        'link': '/addBooks',
+        'title': 'Add Books'
+    },
+    {
+        'link': '/addAuthors',
+        'title': 'Add Authors'
     }
-];
+    ];
 
 
 library=[
@@ -162,15 +169,14 @@ authors=[
     }
 ];
 
-app.get('/',(req,res)=>{
+app.get('/books',(req,res)=>{
     res.render('books',
     {
-        nav:navlink, title:"Library"
+        nav:navlink, title:"Books", library
     });
 });
 
-
-app.get('/books',(req,res)=>{
+app.get('/',(req,res)=>{
     res.render('books',
     {
         nav:navlink, title:"Books", library
@@ -189,6 +195,20 @@ app.get('/authors',(req, res)=>{
     res.render('authors',
         {
             nav:navlink, 'title':'Authors', authors
+        });
+});
+
+app.get('/addBooks',(req, res)=>{
+    res.render('addBooks',
+        {
+            nav:navlink, 'title':'Add Books'
+        });
+});
+
+app.get('/addAuthors',(req, res)=>{
+    res.render('addAuthors',
+        {
+            nav:navlink, 'title':'Add Authors'
         });
 });
 
