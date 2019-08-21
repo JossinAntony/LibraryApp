@@ -269,34 +269,34 @@ app.get('/',(req,res)=>{
         })
     });
     
-    // //retrieve book API
-    // app.get('/retrieveBooksAPI',(req,res)=>{
-    //     var retrieve = BooksSchema.find((error,data)=>{
-    //         if(error){
-    //             throw error;
-    //             res.send(error);
-    //         }else{
-    //             //console.log(data);
-    //             res.send(data)
-    //         }
-    //     })
-    // })
+    //retrieve author API
+    app.get('/retrieveAuthorsAPI',(req,res)=>{
+        var retrieve = AuthorsSchema.find((error,data)=>{
+            if(error){
+                throw error;
+                res.send(error);
+            }else{
+                //console.log(data);
+                res.send(data)
+            }
+        })
+    })
     
-    // //apiLink
-    // const retrieveBooksAPILink = 'http://localhost:3000/retrieveBooksAPI';
+    //apiLink
+    const retrieveAuthorsAPILink = 'http://localhost:3000/retrieveAuthorsAPI';
     
-    // app.get('/books',(req,res)=>{
-    //     request(retrieveBooksAPILink,(error,response,body)=>{
-    //         if(error){
-    //             throw error;
-    //             res.send(error);
-    //         }else{
-    //             var data = JSON.parse(body);
-    //             //console.log(data);
-    //             res.render('books',{nav:navlink, title:"Books",'library':data})
-    //         }
-    //     });
-    // });
+    app.get('/authors',(req,res)=>{
+        request(retrieveAuthorsAPILink,(error,response,body)=>{
+            if(error){
+                throw error;
+                res.send(error);
+            }else{
+                var data = JSON.parse(body);
+                //console.log(data);
+                res.render('authors',{nav:navlink, title:"Authors",'authors':data})
+            }
+        });
+    });
 
 ////////////////
 // app.get('/books',(req,res)=>{
