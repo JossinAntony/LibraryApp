@@ -1,9 +1,13 @@
 const Express=require('express');
+const Mongoose = require('mongoose');
+const bodyParser = require('body-parser')
 
 var app=new Express();
 
 app.set('view engine', 'ejs');
 app.use(Express.static(__dirname+"/public"));
+app.use(bodyParser.urlencoded({extended:true}));
+
 
 navlink=[
     {
@@ -168,7 +172,35 @@ authors=[
         'src':'/img/hooks.jpg',
     }
 ];
+///////////////////////////
+Mongoose.connect('mongodb://localhost:27017/LibraryDB');
+const BooksSchema = Mongoose.model('Books',{
+Title:String,
+Author:String,
+Publisher:String,
+Year:String,
+src:String
+});
 
+//save books API
+app.post('/saveBooksAPI',(req,res)=>{
+    var details = req.body;
+    console.log(details)
+    var book = new BooksSchema(details);
+    book.save(book,(error, data)=>{
+        if(error){
+            throw error;
+            res.send(error);
+        }else{
+            res.send("<script>alert('New book added to library!')</script>")
+            console.log(data);
+        }
+    })
+});
+
+
+
+////////////////
 app.get('/books',(req,res)=>{
     res.render('books',
     {
