@@ -174,6 +174,7 @@ authors=[
 ];
 ///////////////////////////
 Mongoose.connect('mongodb://localhost:27017/LibraryDB');
+
 const BooksSchema = Mongoose.model('Books',{
 Title:String,
 Author:String,
@@ -181,6 +182,7 @@ Publisher:String,
 Year:String,
 src:String
 });
+
 
 //save books API
 app.post('/saveBooksAPI',(req,res)=>{
@@ -197,6 +199,23 @@ app.post('/saveBooksAPI',(req,res)=>{
         }
     })
 });
+
+//retrieve book API
+app.get('/retrieveBooksAPI',(req,res)=>{
+    var retrieve = BooksSchema.find((error,data)=>{
+        if(error){
+            throw error;
+            res.send(error);
+        }else{
+            console.log(data);
+            res.send(data)
+        }
+    })
+})
+
+//apiLink
+
+const retrieveBooksAPILink = 'http://localhost:3000/retrieveBooks';
 
 
 
