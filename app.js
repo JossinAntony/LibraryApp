@@ -228,14 +228,20 @@ app.get('/books',(req,res)=>{
             //console.log(data);
             res.render('books',{nav:navlink, title:"Books",'library':data})
         }
-    })
+    });
+});
 
-
-
-
-    // res.render('books',{
-    //     nav:navlink, title:"Books", library
-    // });
+app.get('/',(req,res)=>{
+    request(retrieveBooksAPILink,(error,response,body)=>{
+        if(error){
+            throw error;
+            res.send(error);
+        }else{
+            var data = JSON.parse(body);
+            //console.log(data);
+            res.render('books',{nav:navlink, title:"Books",'library':data})
+        }
+    });
 });
 
 ////////////////
@@ -246,12 +252,12 @@ app.get('/books',(req,res)=>{
 //     });
 // });
 
-app.get('/',(req,res)=>{
-    res.render('books',
-    {
-        nav:navlink, title:"Books", library
-    });
-});
+// app.get('/',(req,res)=>{
+//     res.render('books',
+//     {
+//         nav:navlink, title:"Books", library
+//     });
+// });
 
 app.get('/booksingle/:id',(req,res)=>{
     const x = req.params.id;
