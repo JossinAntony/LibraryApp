@@ -242,6 +242,29 @@ app.get('/',(req,res)=>{
     });
 });
 
+//retrieve single book
+//Define single book retrievel API
+app.get('/retrieveSingleBookAPI/:id',(req,res)=>{
+    var id = req.params.id;
+    console.log(id);
+    BooksSchema.findOne({_id:id},(error,data)=>{  //findOne finds one
+        if(error){
+            throw error;
+        }else{
+            res.send(data);
+            console.log(data);
+        }
+    });
+});
+
+// single book retrievel API link
+
+//function to use the single book retrievel API link
+app.post('/retrieveSingleBook',(req,res)=>{
+
+});
+
+
 ///////////
 //Authorsschema & retrievel
     const AuthorsSchema = Mongoose.model('Authors',{
