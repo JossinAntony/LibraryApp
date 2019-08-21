@@ -184,7 +184,6 @@ Year:String,
 src:String
 });
 
-
 //save books API
 app.post('/saveBooksAPI',(req,res)=>{
     var details = req.body;
@@ -215,7 +214,6 @@ app.get('/retrieveBooksAPI',(req,res)=>{
 })
 
 //apiLink
-
 const retrieveBooksAPILink = 'http://localhost:3000/retrieveBooksAPI';
 
 app.get('/books',(req,res)=>{
@@ -243,6 +241,62 @@ app.get('/',(req,res)=>{
         }
     });
 });
+
+///////////
+//Authorsschema & retrievel
+    const AuthorsSchema = Mongoose.model('Authors',{
+        name:String,
+        dob:String,
+        country:String,
+        otherworks:String,
+        src:String
+        });
+    
+    
+    //save authors API
+    app.post('/saveAuthorsAPI',(req,res)=>{
+        var details = req.body;
+        console.log(details)
+        var author = new AuthorsSchema(details);
+        author.save(author,(error, data)=>{
+            if(error){
+                throw error;
+                res.send(error);
+            }else{
+                res.send("<script>alert('New book added to library!')</script>")
+                console.log(data);
+            }
+        })
+    });
+    
+    // //retrieve book API
+    // app.get('/retrieveBooksAPI',(req,res)=>{
+    //     var retrieve = BooksSchema.find((error,data)=>{
+    //         if(error){
+    //             throw error;
+    //             res.send(error);
+    //         }else{
+    //             //console.log(data);
+    //             res.send(data)
+    //         }
+    //     })
+    // })
+    
+    // //apiLink
+    // const retrieveBooksAPILink = 'http://localhost:3000/retrieveBooksAPI';
+    
+    // app.get('/books',(req,res)=>{
+    //     request(retrieveBooksAPILink,(error,response,body)=>{
+    //         if(error){
+    //             throw error;
+    //             res.send(error);
+    //         }else{
+    //             var data = JSON.parse(body);
+    //             //console.log(data);
+    //             res.render('books',{nav:navlink, title:"Books",'library':data})
+    //         }
+    //     });
+    // });
 
 ////////////////
 // app.get('/books',(req,res)=>{
