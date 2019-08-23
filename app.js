@@ -230,7 +230,7 @@ res.render('booksingle',{title:"Books",nav:navlink, 'book_single':data});
         })
     });
     
-    //retrieve author API
+    //retrieve authors API
     app.get('/retrieveAuthorsAPI',(req,res)=>{
         var retrieve = AuthorsSchema.find((error,data)=>{
             if(error){
@@ -259,29 +259,41 @@ res.render('booksingle',{title:"Books",nav:navlink, 'book_single':data});
         });
     });
 
+    //Retrieve single author API
+
+    app.get('/retrieveSingleAuthorAPI',(req,res)=>{
+        var id = req.query.q;
+        console.log(id);
+        AuthorsSchema.find({_id:id},(error,data)=>{
+            if(error){
+                throw error;
+                res.send(error);
+            }else{
+                res.send(data);
+                console.log(data);
+                //res.render('authorsingle',{nav:navlink, title:"Authors",author_singlename:data});
+            }
+        })
+    });
+
+    const retrieveSingleAuthorAPILink = 'http://localhost:3000/retrieveSingleAuthorAPI';
+
+    //Retrieve single author function
+    app.get('/retrieveSingleAuthor/:q',(req, res)=>{
+        var id = req.params.q;
+        request(retrieveSingleAuthorAPILink+"/?q="+id,(error, response, body)=>{
+            if(error){
+                throw error;
+                res.send(error);
+            }else{
+                data = JSON.parse(body);
+                console.log(data[0]);
+                res.render('authorsingle', {nav:navlink, title:"Author", author_single:data[0]});
+            }
+        });
+    });
+
 ////////////////
-// app.get('/books',(req,res)=>{
-//     res.render('books',
-//     {
-//         nav:navlink, title:"Books", library
-//     });
-// });
-
-// app.get('/',(req,res)=>{
-//     res.render('books',
-//     {
-//         nav:navlink, title:"Books", library
-//     });
-// });
-
-// app.get('/booksingle/:id',(req,res)=>{
-//     const x = req.params.id;
-//     res.render('booksingle',
-//     {
-//         title:"Book", nav:navlink, 'book_single':library[x]
-//     });
-// });
-
 app.get('/authors',(req, res)=>{
     res.render('authors',
         {
