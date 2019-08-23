@@ -104,24 +104,24 @@
             <div class="row">    
               <br>
               <div class="col-md-2 col-sm-3 text-center">
-                <a class="story-title" href="#"><img alt="" src="<%= book_single.src %>" style="width:200px;height:300px" class=""></a>
+                <a class="story-title" href="#"><img alt="" src="<%= book_single[0].src %>" style="width:200px;height:300px" class=""></a>
               </div>
               <div class="col-md-12 col-sm-11">
-                <h3><%= book_single.Title %></h3>
+                <h3><%= book_single[0].Title %></h3>
                 <div class="row">
                   <div class="col-xs-9">
                     <table class="table">
                       <tr>
                         <td><h5 >Author:</h5></td>
-                        <td><h5><%= book_single.Author %></h5></td>
+                        <td><h5><%= book_single[0].Author %></h5></td>
                       </tr>
                       <tr>
                           <td><h5 >Publisher:</h5></td>
-                          <td><h5><%= book_single.Publisher %></h5></td>
+                          <td><h5><%= book_single[0].Publisher %></h5></td>
                       </tr>
                       <tr>
                           <td><h5 >Year:</h5></td>
-                          <td><h5><%= book_single.Year %></h5></td>
+                          <td><h5><%= book_single[0].Year %></h5></td>
                       </tr>
                     </table>
                   </div>

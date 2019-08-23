@@ -28,78 +28,7 @@ navlink=[
     ];
 
 
-library=[
-    {
-        'Title':'Pride & Prejudice',
-        'Author':'Jane Austen',
-        'Publisher': 'T. Egerton, Whitehall',
-        'Year': '1813',
-        'src':'/img/PrideAndPrejudice.jpg'
-    },
-    {
-        'Title':'Never Let Me Go',
-        'Author':'Kazuo Ishiguro',
-        'Publisher': 'Faber and Faber',
-        'Year': '2005',
-        'src':'/img/NeverLetMeGo.jpg'
-    },
-    {
-        'Title':'Beloved',
-        'Author':'Toni Morrison',
-        'Publisher': 'Alfred A. Knopf Inc.',
-        'Year': '1987',
-        'src':'/img/Beloved.jpg'
-    },
-    {
-        'Title':'Things Fall Apart',
-        'Author':'Chinua Achebe',
-        'Publisher': 'William Heinemann Ltd.',
-        'Year': '1958',
-        'src':'/img/ThingsFallApart.jpg'
-    },
-    {
-        'Title':'Frankenstein',
-        'Author':'Mary Shelly',
-        'Publisher': 'Lackington, Mavor & Jones',
-        'Year': '1818',
-        'src':'/img/Frankenstein.jpg'
-    },
-    {
-        'Title':'The God of Small things',
-        'Author':'Arundhati Roy',
-        'Publisher': 'IndiaInk, India',
-        'Year': '1997',
-        'src':'/img/GodOfSmallThings.jpg'
-    },
-    {
-        'Title':'To Kill a Mocking Bird',
-        'Author':'Harper Lee',
-        'Publisher': 'J. B. Lippincott & Co.',
-        'Year': '1960',
-        'src':'/img/ToKillaMockingBird.jpg'
-    },
-    {
-        'Title':'The Great Gatsby',
-        'Author':'F. Scott Fitzgerald',
-        'Publisher': 'Charles Scribner\'s Sons',
-        'Year': '1925',
-        'src':'/img/GreatGatsby.jpg'
-    },
-    {
-        'Title':'The Handmaid’s Tale',
-        'Author':'Margaret Atwood',
-        'Publisher': 'McClelland and Stewart',
-        'Year': '1985',
-        'src':'/img/HMT.jpg'
-    },
-    {
-        'Title':'All About Love',
-        'Author':'Bell Hooks',
-        'Publisher': 'Harper',
-        'Year': '2000',
-        'src':'/img/AllAboutLove.jpg'
-    }
-];
+
 
 authors=[
     {
@@ -244,15 +173,14 @@ app.get('/',(req,res)=>{
 
 //retrieve single book
 //Define single book retrievel API
-app.get('/retrieveSingleBookAPI/:id',(req,res)=>{
-    var id = req.params.id;
-    console.log(id);
-    BooksSchema.findOne({_id:id},(error,data)=>{  //findOne finds one
+app.get('/retrieveSingleBookAPI',(req,res)=>{
+    var id = req.query.q;
+    BooksSchema.find({_id:id},(error,data)=>{  
         if(error){
             throw error;
         }else{
             res.send(data);
-            console.log(data);
+            //console.log(data);
         }
     });
 });
@@ -260,8 +188,18 @@ app.get('/retrieveSingleBookAPI/:id',(req,res)=>{
 // single book retrievel API link
 
 //function to use the single book retrievel API link
-app.post('/retrieveSingleBook',(req,res)=>{
-
+app.get('/retrieveSingleBook/:id',(req,res)=>{
+    var item = req.params.id;
+    const retrieveSingleBookAPILink = 'http://localhost:3000/retrieveSingleBookAPI/?q='+ item;
+    request(retrieveSingleBookAPILink,(error,response,body)=>{
+        if(error){
+            throw error;
+        }else{
+            var data = JSON.parse(body);
+            console.log(data);
+res.render('booksingle',{title:"Books",nav:navlink, 'book_single':data});
+        }
+    })
 });
 
 
@@ -336,13 +274,13 @@ app.post('/retrieveSingleBook',(req,res)=>{
 //     });
 // });
 
-app.get('/booksingle/:id',(req,res)=>{
-    const x = req.params.id;
-    res.render('booksingle',
-    {
-        title:"Book", nav:navlink, 'book_single':library[x]
-    });
-});
+// app.get('/booksingle/:id',(req,res)=>{
+//     const x = req.params.id;
+//     res.render('booksingle',
+//     {
+//         title:"Book", nav:navlink, 'book_single':library[x]
+//     });
+// });
 
 app.get('/authors',(req, res)=>{
     res.render('authors',
