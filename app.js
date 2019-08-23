@@ -26,84 +26,15 @@ navlink=[
         'title': 'Add Authors'
     }
     ];
-
-
-
-
-authors=[
-    {
-        'name':'Jane Austen',
-        'dob':'December 16, 1775',
-        'country':'England',
-        'otherworks':'Emma, Persuasion, Lady Susan',
-        'src':'/img/austen.jpg',
-    },
-    {
-        'name':'Kazuo Ishiguro',
-        'dob':'November 8, 1954',
-        'country':'Japan',
-        'otherworks':'The Remains of the Day, The Unconsoled, When We Were Orphans',
-        'src':'/img/ishiguro.jpg',
-    },
-    {
-        'name':'Toni Morrison',
-        'dob':'February 18, 1931',
-        'country':'USA',
-        'otherworks':'Song of Solomon, Tar Baby, The Bluest Eye',
-        'src':'/img/toni.jpg',
-    },
-    {
-        'name':'Chinua Achebe',
-        'dob':'November 16, 1930',
-        'country':'Japan',
-        'otherworks':'No Longer at Ease, Arrow of God, A Man of the People, Anthills of the Savannah',
-        'src':'/img/achebe.jpg',
-    },
-    {
-        'name':'Mary Shelly',
-        'dob':'1797',
-        'country':'England',
-        'otherworks':'The Last Man, The Fortunes of Perkin Warbeck, Lodore, Falkner',
-        'src':'/img/shelley.jpg',
-    },
-    {
-        'name':'Arundhati Roy',
-        'dob':'November 24, 1961',
-        'country':'India',
-        'otherworks':'The End of Imagination, The Cost of Living. Flamingo, The Greater Common Good, The Algebra of Infinite Justice',
-        'src':'/img/roy.jpg',
-    },
-    {
-        'name':'Harper Lee',
-        'dob':'April 28, 1926',
-        'country':'USA',
-        'otherworks':'Go Set a Watchman',
-        'src':'/img/lee.jpg',
-    },
-    {
-        'name':'F. Scott Fitzgerald',
-        'dob':'September 24, 1896',
-        'country':'Japan',
-        'otherworks':'This Side of Paradise, The Beautiful and Damned, Tender is the Night, The Last Tycoon',
-        'src':'/img/scott.jpg',
-    },
-    {
-        'name':'Margaret Atwood',
-        'dob':'November 18, 1939',
-        'country':'Canada',
-        'otherworks':'The Edible Woman, Surfacing, Lady Oracle, Life Before Man',
-        'src':'/img/atwood.jpg',
-    },
-    {
-        'name':'Bell Hooks',
-        'dob':'November 16, 1930',
-        'country':'Japan',
-        'otherworks':'Bone Black: Memories of Girlhood, Wounds of passion: a writing life, Remembered rapture: the writer at work, Justice: childhood love lessons',
-        'src':'/img/hooks.jpg',
-    }
-];
 ///////////////////////////
-Mongoose.connect('mongodb://localhost:27017/LibraryDB');
+// Mongoose.connect('mongodb://localhost:27017/LibraryDB', { useNewUrlParser: true }, (err, res) => {
+//     if (err) throw err;
+//     //console.log('Database online');
+//     });
+
+Mongoose.connect('mongodb+srv://jossin:jossin@cluster0-arjkd.mongodb.net/test?retryWrites=true&w=majority');
+
+
 
 const BooksSchema = Mongoose.model('Books',{
 Title:String,
@@ -143,7 +74,9 @@ app.get('/retrieveBooksAPI',(req,res)=>{
 })
 
 //apiLink
-const retrieveBooksAPILink = 'http://localhost:3000/retrieveBooksAPI';
+//const retrieveBooksAPILink = 'http://localhost:3046/retrieveBooksAPI';
+const retrieveBooksAPILink = 'http://libraryapp-ict.herokuapp.com/retrieveBooksAPI';
+
 
 app.get('/books',(req,res)=>{
     request(retrieveBooksAPILink,(error,response,body)=>{
@@ -186,11 +119,11 @@ app.get('/retrieveSingleBookAPI',(req,res)=>{
 });
 
 // single book retrievel API link
-
 //function to use the single book retrievel API link
 app.get('/retrieveSingleBook/:id',(req,res)=>{
     var item = req.params.id;
-    const retrieveSingleBookAPILink = 'http://localhost:3000/retrieveSingleBookAPI/?q='+ item;
+    //const retrieveSingleBookAPILink = 'http://localhost:3046/retrieveSingleBookAPI/?q='+ item;
+    const retrieveSingleBookAPILink = 'http://libraryapp-ict.herokuapp.com/retrieveSingleBookAPI/?q='+ item;
     request(retrieveSingleBookAPILink,(error,response,body)=>{
         if(error){
             throw error;
@@ -244,7 +177,9 @@ res.render('booksingle',{title:"Books",nav:navlink, 'book_single':data});
     })
     
     //apiLink
-    const retrieveAuthorsAPILink = 'http://localhost:3000/retrieveAuthorsAPI';
+    
+    //const retrieveAuthorsAPILink = 'http://localhost:3046/retrieveAuthorsAPI';
+    const retrieveAuthorsAPILink = 'http://libraryapp-ict.herokuapp.com/retrieveAuthorsAPI';
     
     app.get('/authors',(req,res)=>{
         request(retrieveAuthorsAPILink,(error,response,body)=>{
@@ -270,13 +205,12 @@ res.render('booksingle',{title:"Books",nav:navlink, 'book_single':data});
                 res.send(error);
             }else{
                 res.send(data);
-                console.log(data);
-                //res.render('authorsingle',{nav:navlink, title:"Authors",author_singlename:data});
             }
         })
     });
-
-    const retrieveSingleAuthorAPILink = 'http://localhost:3000/retrieveSingleAuthorAPI';
+    
+    //const retrieveSingleAuthorAPILink = 'http://localhost:3046/retrieveSingleAuthorAPI';
+    const retrieveSingleAuthorAPILink = 'http://libraryapp-ict.herokuapp.com/retrieveSingleAuthorAPI';
 
     //Retrieve single author function
     app.get('/retrieveSingleAuthor/:q',(req, res)=>{
@@ -322,15 +256,6 @@ app.get('/authorsingle/:id',(req, res)=>{
     })
 });
 
-// app.get('/booksingle',(req,res)=>{
-//     const x = req.params.id;
-//     res.render('booksingle',
-//     {
-//         title:"Book", nav:navlink, 'book_single':library[1]
-//     });
-// });
-
-
-app.listen(process.env.PORT || 3000,()=>{
-    console.log("Server running at http://localhost:3000")
+app.listen(process.env.PORT || 3046,()=>{
+    //console.log("Server running at http://localhost:3046")
 })
