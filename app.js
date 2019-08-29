@@ -82,7 +82,19 @@ app.post('/saveUserDetailsAPI',(req,res)=>{
             res.send(data)
         }
     })
+})
 
+//retrieve user from username
+app.post('/retrieveUser',(req,res)=>{
+    var user = req.body.uname;
+    userSchema.find({uname:user},(error,data)=>{
+        if(error){
+            throw error;
+            res.send(error);
+        }else{
+            res.send(data)
+        }
+    })
 })
 
 //save books API
