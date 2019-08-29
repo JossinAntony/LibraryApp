@@ -171,12 +171,12 @@ res.render('booksingle',{title:"Books",nav:navlink, 'book_single':data});
         var details = req.body;
         console.log(details)
         var author = new AuthorsSchema(details);
-        author.save(author,(error, data)=>{
+        author.save((error, data)=>{
             if(error){
                 throw error;
                 res.send(error);
             }else{
-                res.send("<script>alert('New book added to library!')</script>")
+                res.send(data);
                 console.log(data);
             }
         })
