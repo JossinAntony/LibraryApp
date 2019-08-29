@@ -65,20 +65,20 @@ src:String
 });
 
 //save books API
-// app.post('/saveBooksAPI',(req,res)=>{
-//     var details = req.body;
-//     console.log(details)
-//     var book = new BooksSchema(details);
-//     book.save(book,(error, data)=>{
-//         if(error){
-//             throw error;
-//             res.send(error);
-//         }else{
-//             res.send("<script>alert('New book added to library!')</script>")
-//             //console.log(data);
-//         }
-//     })
-// });
+app.post('/saveBooksAPI',(req,res)=>{
+    var details = req.body;
+
+    var book = new BooksSchema(details);
+    book.save((error, data)=>{
+        if(error){
+            throw error;
+            res.send(error);
+        }else{
+            res.send(data)
+            //console.log(data);
+        }
+    })
+});
 
 //retrieve book API
 app.get('/retrieveBooksAPI',(req,res)=>{
