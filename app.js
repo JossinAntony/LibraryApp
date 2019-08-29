@@ -46,12 +46,12 @@ navlink=[
     }
     ];
 ///////////////////////////
-Mongoose.connect('mongodb://localhost:27017/LibraryDB', { useNewUrlParser: true }, (err, res) => {
-    if (err) throw err;
-    //console.log('Database online');
-    });
+//Mongoose.connect('mongodb://localhost:27017/LibraryDB', { useNewUrlParser: true }, (err, res) => {
+    // if (err) throw err;
+    // //console.log('Database online');
+    // });
 
-//Mongoose.connect('mongodb+srv://jossin:jossin@cluster0-arjkd.mongodb.net/test?retryWrites=true&w=majority');
+Mongoose.connect('mongodb+srv://jossin:jossin@cluster0-arjkd.mongodb.net/test?retryWrites=true&w=majority');
 
 
 
@@ -93,8 +93,8 @@ app.get('/retrieveBooksAPI',(req,res)=>{
 })
 
 //apiLink
-const retrieveBooksAPILink = 'http://localhost:3046/retrieveBooksAPI';
-//const retrieveBooksAPILink = 'http://libraryapp-ict.herokuapp.com/retrieveBooksAPI';
+//const retrieveBooksAPILink = 'http://localhost:3046/retrieveBooksAPI';
+const retrieveBooksAPILink = 'http://libraryapp-ict.herokuapp.com/retrieveBooksAPI';
 
 
 app.get('/books',(req,res)=>{
@@ -141,8 +141,8 @@ app.get('/retrieveSingleBookAPI',(req,res)=>{
 //function to use the single book retrievel API link
 app.get('/retrieveSingleBook/:id',(req,res)=>{
     var item = req.params.id;
-    const retrieveSingleBookAPILink = 'http://localhost:3046/retrieveSingleBookAPI/?q='+ item;
-    //const retrieveSingleBookAPILink = 'http://libraryapp-ict.herokuapp.com/retrieveSingleBookAPI/?q='+ item;
+   // const retrieveSingleBookAPILink = 'http://localhost:3046/retrieveSingleBookAPI/?q='+ item;
+    const retrieveSingleBookAPILink = 'http://libraryapp-ict.herokuapp.com/retrieveSingleBookAPI/?q='+ item;
     request(retrieveSingleBookAPILink,(error,response,body)=>{
         if(error){
             throw error;
@@ -197,8 +197,8 @@ res.render('booksingle',{title:"Books",nav:navlink, 'book_single':data});
     
     //apiLink
     
-    const retrieveAuthorsAPILink = 'http://localhost:3046/retrieveAuthorsAPI';
-   // const retrieveAuthorsAPILink = 'http://libraryapp-ict.herokuapp.com/retrieveAuthorsAPI';
+    //const retrieveAuthorsAPILink = 'http://localhost:3046/retrieveAuthorsAPI';
+    const retrieveAuthorsAPILink = 'http://libraryapp-ict.herokuapp.com/retrieveAuthorsAPI';
     
     app.get('/authors',(req,res)=>{
         request(retrieveAuthorsAPILink,(error,response,body)=>{
@@ -228,8 +228,8 @@ res.render('booksingle',{title:"Books",nav:navlink, 'book_single':data});
         })
     });
     
-    const retrieveSingleAuthorAPILink = 'http://localhost:3046/retrieveSingleAuthorAPI';
-   // const retrieveSingleAuthorAPILink = 'http://libraryapp-ict.herokuapp.com/retrieveSingleAuthorAPI';
+    // const retrieveSingleAuthorAPILink = 'http://localhost:3046/retrieveSingleAuthorAPI';
+   const retrieveSingleAuthorAPILink = 'http://libraryapp-ict.herokuapp.com/retrieveSingleAuthorAPI';
 
     //Retrieve single author function
     app.get('/retrieveSingleAuthor/:q',(req, res)=>{
