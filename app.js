@@ -8,6 +8,7 @@ var app=new Express();
 app.set('view engine', 'ejs');
 app.use(Express.static(__dirname+"/public"));
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
 
 app.use(function (req, res, next) {
 
