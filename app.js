@@ -64,6 +64,27 @@ Year:String,
 src:String
 });
 
+const userSchema = Mongoose.model('users',{
+    uname:String,
+    upass:String
+    });
+
+
+//save user deatils(username & password)API
+app.post('/saveUserDetailsAPI',(req,res)=>{
+    var details = req.body;
+    var user = new userSchema(details);
+    user.save((error,data)=>{
+        if(error){
+            throw error;
+            res.send(error);
+        }else{
+            res.send(data)
+        }
+    })
+
+})
+
 //save books API
 app.post('/saveBooksAPI',(req,res)=>{
     var details = req.body;
@@ -111,18 +132,30 @@ app.get('/books',(req,res)=>{
     });
 });
 
+// app.get('/',(req,res)=>{
+//     request(retrieveBooksAPILink,(error,response,body)=>{
+//         if(error){
+//             throw error;
+//             res.send(error);
+//         }else{
+//             var data = JSON.parse(body);
+//             //console.log(data);
+//             res.render('books',{nav:navlink, title:"Books",'library':data})
+//         }
+//     });
+// });
+
+
 app.get('/',(req,res)=>{
-    request(retrieveBooksAPILink,(error,response,body)=>{
-        if(error){
-            throw error;
-            res.send(error);
-        }else{
-            var data = JSON.parse(body);
-            //console.log(data);
-            res.render('books',{nav:navlink, title:"Books",'library':data})
+            res.render('login');
         }
-    });
-});
+    );
+
+app.get('/signup',(req,res)=>{
+    res.render('signup');
+}
+);
+
 
 //retrieve single book
 //Define single book retrievel API
