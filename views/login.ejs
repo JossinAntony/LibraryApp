@@ -34,51 +34,51 @@
 </head>
 <body>
 <div class="login-form">
-    <form id="login-profile"  method="post">
+    <form id="login-profile" action="/logInAPI" method="post">
         <h2 class="text-center">Log in</h2>       
         <div class="form-group">
-            <input id="uname" type="text" class="form-control" placeholder="Username is admin" required="required">
+            <input id="uname" name="uname" type="text" class="form-control" placeholder="Username is admin" required="required">
         </div>
         <div class="form-group">
-            <input id="upass" type="password" class="form-control" placeholder="Password is 12345" required="required">
+            <input id="upass"  name="upass"type="password" class="form-control" placeholder="Password is 12345" required="required">
         </div>
         <div class="form-group">
-            <button type="button" class="btn btn-primary btn-block" onclick="loginsubmit()">Log in</button>
+            <button type="submit" class="btn btn-primary btn-block" >Log in</button>
         </div>
        
     </form>
-    <a href="signup.ejs">New member? Signup here</a>
+    <a href="/signup">New member? Signup here</a>
 </div>
 <script>
-function loginsubmit()
-{
-    var uname=document.forms['login-profile']['uname'].value;
-    var upass=document.forms['login-profile']['upass'].value;
+// function loginsubmit()
+// {
+//     var uname=document.forms['login-profile']['uname'].value;
+//     var upass=document.forms['login-profile']['upass'].value;
 
-    if(uname=="" || upass=="")
-    {
-        alert('Please fill the form')
-    }
-    else if(uname=="admin" && upass == "12345")
-    {
-        var callback = function(myCallback)
-        {
-            setTimeout(function(){
-                myCallback();
-            }, 100);
-        };
-        //document.write('Login Successfull');
-        alert('Login Successfull');
-        callback(function(){
-            window.location.replace('/books');
-        });
-    }
-    else{
-        alert("username & password does not match!");
-        //document.write('Login Unsuccessfull');
-        window.location.replace('LogIn.html');
-    };
-}
+//     if(uname=="" || upass=="")
+//     {
+//         alert('Please fill the form')
+//     }
+//     else if(uname=="admin" && upass == "12345")
+//     {
+//         var callback = function(myCallback)
+//         {
+//             setTimeout(function(){
+//                 myCallback();
+//             }, 100);
+//         };
+//         //document.write('Login Successfull');
+//         alert('Login Successfull');
+//         callback(function(){
+//             window.location.replace('/books');
+//         });
+//     }
+//     else{
+//         alert("username & password does not match!");
+//         //document.write('Login Unsuccessfull');
+//         window.location.replace('LogIn.html');
+//     };
+// }
     </script>
 </body>
 </html>                                		                            

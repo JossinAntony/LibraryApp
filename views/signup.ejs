@@ -34,21 +34,16 @@
 </head>
 <body>
 <div class="login-form">
-    <form id="login-profile"  action="/saveUserDetailsAPI" method="post">
+    <form id="login-profile"  action="/saveUser" method="post">
         <h2 class="text-center">Sign up</h2>       
-        <div class="form-group">
-            <input id="uname" type="text" class="form-control" placeholder="Please give username " required="required">
-        </div>
-        <div class="form-group">
-            <input id="upass" type="password" class="form-control" placeholder="Please give a password" required="required">
-        </div>
-        <div class="form-group">
-            <input id="cpass" type="password" class="form-control" placeholder="Please confirm the password" required="required">
-        </div>
-        <div class="form-group">
-            <button type="button" class="btn btn-primary btn-block" >Submit</button>
-        </div>
-       
+        
+            <input id="uname" name="uname" type="text" class="form-control" placeholder="Please give username " required="required">
+        
+      
+            <input id="upass" name="upass"type="password" class="form-control" placeholder="Please give a password" required="required">
+    
+            <button type="submit" class="btn btn-primary btn-block" >Submit</button>
+     
     </form>
 </div>
 <script>
