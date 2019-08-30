@@ -47,12 +47,12 @@ navlink=[
     }
     ];
 ///////////////////////////
-Mongoose.connect('mongodb://localhost:27017/LibraryDB', { useNewUrlParser: true }, (err, res) => {
-    if (err) throw err;
-    //console.log('Database online');
-    });
+// Mongoose.connect('mongodb://localhost:27017/LibraryDB', { useNewUrlParser: true }, (err, res) => {
+//     if (err) throw err;
+//     //console.log('Database online');
+//     });
 
-//Mongoose.connect('mongodb+srv://jossin:jossin@cluster0-arjkd.mongodb.net/test?retryWrites=true&w=majority');
+Mongoose.connect('mongodb+srv://jossin:jossin@cluster0-arjkd.mongodb.net/test?retryWrites=true&w=majority');
 
 
 
@@ -84,7 +84,8 @@ app.post('/saveUserDetailsAPI',(req,res)=>{
     })
 })
 
-const saveUserDetailsAPILink = "http://localhost:3052/saveUserDetailsAPI";
+//const saveUserDetailsAPILink = "http://localhost:3052/saveUserDetailsAPI";
+const saveUserDetailsAPILink = "http://libraryapp-ict.herokuapp.com/saveUserDetailsAPI";
 
 //retrieve user from username
 app.get('/retrieveUser',(req,res)=>{
@@ -99,7 +100,8 @@ app.get('/retrieveUser',(req,res)=>{
         }
     })
 })
-const retrieveUserAPILink = "http://localhost:3052/retrieveUser";
+//const retrieveUserAPILink = "http://localhost:3052/retrieveUser";
+const retrieveUserAPILink = "http://libraryapp-ict.herokuapp.com/retrieveUser";
 
 //save user details from sign up page
 app.post('/saveUser',(req,res)=>{
@@ -136,7 +138,7 @@ app.post('/saveUser',(req,res)=>{
 app.post('/logInAPI',(req, res)=>{
     var username = req.body.uname;
     var pwd =req.body.upass;
-    request("http://localhost:3052/retrieveUser"+"/?q="+username,(error, response, body)=>{
+    request(retrieveUserAPILink+"/?q="+username,(error, response, body)=>{
         if(error){
             throw error;
             res.send(error);
@@ -199,8 +201,8 @@ app.get('/retrieveBooksAPI',(req,res)=>{
 })
 
 //apiLink
-const retrieveBooksAPILink = 'http://localhost:3052/retrieveBooksAPI';
-//const retrieveBooksAPILink = 'http://libraryapp-ict.herokuapp.com/retrieveBooksAPI';
+//const retrieveBooksAPILink = 'http://localhost:3052/retrieveBooksAPI';
+const retrieveBooksAPILink = 'http://libraryapp-ict.herokuapp.com/retrieveBooksAPI';
 
 
 app.get('/books',(req,res)=>{
@@ -263,8 +265,8 @@ app.get('/retrieveSingleBookAPI',(req,res)=>{
 //function to use the single book retrievel API link
 app.get('/retrieveSingleBook/:id',(req,res)=>{
     var item = req.params.id;
-   const retrieveSingleBookAPILink = 'http://localhost:3052/retrieveSingleBookAPI/?q='+ item;
-   //  const retrieveSingleBookAPILink = 'http://libraryapp-ict.herokuapp.com/retrieveSingleBookAPI/?q='+ item;
+   //const retrieveSingleBookAPILink = 'http://localhost:3052/retrieveSingleBookAPI/?q='+ item;
+     const retrieveSingleBookAPILink = 'http://libraryapp-ict.herokuapp.com/retrieveSingleBookAPI/?q='+ item;
     request(retrieveSingleBookAPILink,(error,response,body)=>{
         if(error){
             throw error;
@@ -319,8 +321,8 @@ res.render('booksingle',{title:"Books",nav:navlink, 'book_single':data});
     
     //apiLink
     
-   const retrieveAuthorsAPILink = 'http://localhost:3052/retrieveAuthorsAPI';
-     //const retrieveAuthorsAPILink = 'http://libraryapp-ict.herokuapp.com/retrieveAuthorsAPI';
+  // const retrieveAuthorsAPILink = 'http://localhost:3052/retrieveAuthorsAPI';
+     const retrieveAuthorsAPILink = 'http://libraryapp-ict.herokuapp.com/retrieveAuthorsAPI';
     
     app.get('/authors',(req,res)=>{
         request(retrieveAuthorsAPILink,(error,response,body)=>{
@@ -350,8 +352,8 @@ res.render('booksingle',{title:"Books",nav:navlink, 'book_single':data});
         })
     });
     
-    const retrieveSingleAuthorAPILink = 'http://localhost:3052/retrieveSingleAuthorAPI';
-  //  const retrieveSingleAuthorAPILink = 'http://libraryapp-ict.herokuapp.com/retrieveSingleAuthorAPI';
+   // const retrieveSingleAuthorAPILink = 'http://localhost:3052/retrieveSingleAuthorAPI';
+    const retrieveSingleAuthorAPILink = 'http://libraryapp-ict.herokuapp.com/retrieveSingleAuthorAPI';
 
     //Retrieve single author function
     app.get('/retrieveSingleAuthor/:q',(req, res)=>{
