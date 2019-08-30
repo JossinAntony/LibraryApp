@@ -47,12 +47,12 @@ navlink=[
     }
     ];
 ///////////////////////////
-// Mongoose.connect('mongodb://localhost:27017/LibraryDB', { useNewUrlParser: true }, (err, res) => {
-//     if (err) throw err;
-//     //console.log('Database online');
-//     });
+Mongoose.connect('mongodb://localhost:27017/LibraryDB', { useNewUrlParser: true }, (err, res) => {
+    if (err) throw err;
+    //console.log('Database online');
+    });
 
-Mongoose.connect('mongodb+srv://jossin:jossin@cluster0-arjkd.mongodb.net/test?retryWrites=true&w=majority');
+//Mongoose.connect('mongodb+srv://jossin:jossin@cluster0-arjkd.mongodb.net/test?retryWrites=true&w=majority');
 
 
 
@@ -84,8 +84,8 @@ app.post('/saveUserDetailsAPI',(req,res)=>{
     })
 })
 
-//const saveUserDetailsAPILink = "http://localhost:3052/saveUserDetailsAPI";
-const saveUserDetailsAPILink = "http://libraryapp-ict.herokuapp.com/saveUserDetailsAPI";
+const saveUserDetailsAPILink = "http://localhost:3052/saveUserDetailsAPI";
+//const saveUserDetailsAPILink = "http://libraryapp-ict.herokuapp.com/saveUserDetailsAPI";
 
 //retrieve user from username
 app.get('/retrieveUser',(req,res)=>{
@@ -100,8 +100,8 @@ app.get('/retrieveUser',(req,res)=>{
         }
     })
 })
-//const retrieveUserAPILink = "http://localhost:3052/retrieveUser";
-const retrieveUserAPILink = "http://libraryapp-ict.herokuapp.com/retrieveUser";
+const retrieveUserAPILink = "http://localhost:3052/retrieveUser";
+//const retrieveUserAPILink = "http://libraryapp-ict.herokuapp.com/retrieveUser";
 
 //save user details from sign up page
 app.post('/saveUser',(req,res)=>{
@@ -135,41 +135,50 @@ app.post('/saveUser',(req,res)=>{
     }); 
 });
 
-app.post('/logInAPI',(req, res)=>{
-    var username = req.body.uname;
-    var pwd =req.body.upass;
+app.get('/logInAPI',(req, res)=>{
+    var username = req.query.uname;
+    var pwd =req.query.upass;
     request(retrieveUserAPILink+"/?q="+username,(error, response, body)=>{
         if(error){
             throw error;
             res.send(error);
         }else{
             var data = JSON.parse(body);
-        }
-        if(data.length <= 0){
-            res.send("<script>alert('username not found, please sign up!')</script><script>window.location.href='/signup'</script>");
-        }else{
-            var result = userSchema.find({$and:[{uname:username},{upass:pwd}]},(error,response)=>{
-                if(error)
-                {
-                    throw error;
-                    res.send(error);
-                }
-                else
-                {
-                   var userInfo = (response);
-                }
-
-                if(userInfo.length <= 0){
-                    res.send("<script>alert('username and password do not match, please try again!')</script><script>window.location.href='/login'</script>");
-                }else{
-                    res.send("<script></script><script>window.location.href='/books'</script>");
-                }
-            })
+            res.send(data);
         }
     })
 })
+const logInAPILink = "http://localhost:3052/logInAPI";
+//const logInAPILink = "http://libraryapp-ict.herokuapp.com/logInAPI";
 
+app.post('/logIn',(req, res)=>{
 
+    var username = req.body.uname;
+    var pwd = req.body.upass;
+    request(logInAPILink+"/?uname="+username+"&upass="+pwd,(error,response,data)=>{ 
+        if(data.length <= 0){
+                    res.send("<script>alert('username not found, please sign up!')</script><script>window.location.href='/signup'</script>");
+                }else{
+                    var result = userSchema.find({$and:[{uname:username},{upass:pwd}]},(error,response)=>{
+                        if(error)
+                        {
+                            throw error;
+                            res.send(error);
+                        }
+                        else
+                        {
+                        var userInfo = (response);
+                        }
+
+                        if(userInfo.length <= 0){
+                            res.send("<script>alert('username and password do not match, please try again!')</script><script>window.location.href='/login'</script>");
+                        }else{
+                            res.send("<script></script><script>window.location.href='/books'</script>");
+                        }
+                })
+            }
+    })
+    })
 
 //save books API
 app.post('/saveBooksAPI',(req,res)=>{
@@ -201,8 +210,8 @@ app.get('/retrieveBooksAPI',(req,res)=>{
 })
 
 //apiLink
-//const retrieveBooksAPILink = 'http://localhost:3052/retrieveBooksAPI';
-const retrieveBooksAPILink = 'http://libraryapp-ict.herokuapp.com/retrieveBooksAPI';
+const retrieveBooksAPILink = 'http://localhost:3052/retrieveBooksAPI';
+//const retrieveBooksAPILink = 'http://libraryapp-ict.herokuapp.com/retrieveBooksAPI';
 
 
 app.get('/books',(req,res)=>{
@@ -265,8 +274,8 @@ app.get('/retrieveSingleBookAPI',(req,res)=>{
 //function to use the single book retrievel API link
 app.get('/retrieveSingleBook/:id',(req,res)=>{
     var item = req.params.id;
-   //const retrieveSingleBookAPILink = 'http://localhost:3052/retrieveSingleBookAPI/?q='+ item;
-     const retrieveSingleBookAPILink = 'http://libraryapp-ict.herokuapp.com/retrieveSingleBookAPI/?q='+ item;
+  const retrieveSingleBookAPILink = 'http://localhost:3052/retrieveSingleBookAPI/?q='+ item;
+     // const retrieveSingleBookAPILink = 'http://libraryapp-ict.herokuapp.com/retrieveSingleBookAPI/?q='+ item;
     request(retrieveSingleBookAPILink,(error,response,body)=>{
         if(error){
             throw error;
@@ -321,8 +330,8 @@ res.render('booksingle',{title:"Books",nav:navlink, 'book_single':data});
     
     //apiLink
     
-  // const retrieveAuthorsAPILink = 'http://localhost:3052/retrieveAuthorsAPI';
-     const retrieveAuthorsAPILink = 'http://libraryapp-ict.herokuapp.com/retrieveAuthorsAPI';
+   const retrieveAuthorsAPILink = 'http://localhost:3052/retrieveAuthorsAPI';
+   //  const retrieveAuthorsAPILink = 'http://libraryapp-ict.herokuapp.com/retrieveAuthorsAPI';
     
     app.get('/authors',(req,res)=>{
         request(retrieveAuthorsAPILink,(error,response,body)=>{
@@ -352,8 +361,8 @@ res.render('booksingle',{title:"Books",nav:navlink, 'book_single':data});
         })
     });
     
-   // const retrieveSingleAuthorAPILink = 'http://localhost:3052/retrieveSingleAuthorAPI';
-    const retrieveSingleAuthorAPILink = 'http://libraryapp-ict.herokuapp.com/retrieveSingleAuthorAPI';
+    const retrieveSingleAuthorAPILink = 'http://localhost:3052/retrieveSingleAuthorAPI';
+   // const retrieveSingleAuthorAPILink = 'http://libraryapp-ict.herokuapp.com/retrieveSingleAuthorAPI';
 
     //Retrieve single author function
     app.get('/retrieveSingleAuthor/:q',(req, res)=>{
