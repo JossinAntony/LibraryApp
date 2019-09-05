@@ -44,6 +44,10 @@ navlink=[
     {
         'link': '/addAuthors',
         'title': 'Add Authors'
+    },
+    {
+        'link': '/editentries',
+        'title': 'Edit/Delete'
     }
     ];
 ///////////////////////////
@@ -195,6 +199,7 @@ app.post('/saveBooksAPI',(req,res)=>{
         }
     })
 });
+
 
 //retrieve book API
 app.get('/retrieveBooksAPI',(req,res)=>{
@@ -398,6 +403,20 @@ app.get('/addAuthors',(req, res)=>{
     res.render('addAuthors',
         {
             nav:navlink, 'title':'Add Authors'
+        });
+});
+
+app.get('/editentries',(req, res)=>{
+    res.render('editentries',
+        {
+            nav:navlink, 'title':'Edit Entries'
+        });
+});
+
+app.get('/editbooks',(req, res)=>{
+    res.render('editbooks',
+        {
+            nav:navlink, 'title':'Edit Books'
         });
 });
 
