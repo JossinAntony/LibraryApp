@@ -278,7 +278,21 @@ app.post('/updateBooksAPI/:id',(req,res)=>{
             res.send('<script>alert("Entry updated!")</script>');
         }
     });
+});
+
+//delete Book
+app.post('/deleteBookAPI',(req,res)=>{
+    var title = req.body.title;
+    
+    BooksSchema.remove({Title:title},(error,data)=>{
+        if(error){
+            throw error;
+            res.send (error);
+        }else{
+            res.send('<script>alert("Entry Deleted!")</script>');
+        }
     });
+});
 // app.get('/',(req,res)=>{
 //     request(retrieveBooksAPILink,(error,response,body)=>{
 //         if(error){
@@ -464,6 +478,13 @@ app.get('/searchForEdit-Books',(req, res)=>{
     res.render('searchForEdit-Books',
         {
             nav:navlink, 'title':'Edit Books'
+        });
+});
+
+app.get('/searchForDelete-Books',(req, res)=>{
+    res.render('searchForDelete-Books',
+        {
+            nav:navlink, 'title':'Delete Book'
         });
 });
 
