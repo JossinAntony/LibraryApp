@@ -84,28 +84,43 @@
 
 
 <div class="container">
-  <div class="row">
-      <div class="col col-12 col-sm-2"></div>
-      <div class="col col-12 col-sm-8">
-          <br><br><br>
-          <h1 class="text-center">Search Book</h1>
-          <br><br>
-          <form action="/deleteBookAPI" method="POST">
-              <table class="table table-borderless">
-                  <tr>
-                      <td><h4 class="text-left">Name:</h4></td>
-                      <td><input type="text" class="form-control" name="title"></td>
-                  </tr>
-                  <tr>
-                      <td></td>
-                      <td><button class="btn btn-info" type="submit">Delete</button></td>
-                  </tr>
-              </table>
-          </form>
-
-      </div>
-      <div class="col col-12 col-sm-2"></div>
-  </div>
+    <div class="row">
+        <div class="col col-12 col-sm-2"></div>
+        <div class="col col-12 col-sm-8 border border-secondary rounded">
+            <br><br><br>
+            <h1 class='text-center'>Edit Author</h1>
+            <br><br>
+            <form action="/updateAuthorsAPI/<%= author[0]._id %>" method="POST">
+                <table class="table table-borderless">
+                    <tr>
+                        <td><h5 class="text-center">Name:</h5></td>
+                        <td> <input type="text" class="form-control" name="name" value="<%=author[0].name %>"></td>
+                    </tr>
+                    <tr>
+                        <td><h5 class="text-center">Date of Birth:</h5></td>
+                        <td> <input type="text" class="form-control" name="dob" value="<%=author[0].dob %>"> </td>
+                    </tr>
+                    <tr>
+                        <td><h5 class="text-center">Country:</h5></td>
+                        <td> <input type="text" class="form-control" name="country" value="<%=author[0].country %>"> </td>
+                    </tr>
+                    <tr>
+                        <td><h5 class="text-center">Other Works:</h5></td>
+                        <td> <input type="text" class="form-control" name="otherworks" value="<%=author[0].otherworks %>"> </td>
+                    </tr>
+                    <tr>
+                        <td><h5 class="text-center">Imgsrc:</h5></td>
+                        <td> <input type="text" class="form-control" name="src" value="<%=author[0].src %>"> </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td> <button class="btn btn-info" type="submit">SUBMIT</button></td>
+                    </tr>
+            </table>
+            </form>
+        </div>
+        <div class="col col-12 col-sm-2"></div>
+    </div>
 </div>
           
           

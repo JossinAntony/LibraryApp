@@ -445,6 +445,69 @@ res.render('booksingle',{title:"Books",nav:navlink, 'book_single':data});
         });
     });
 
+
+    app.get('/searchAuthorsAPI',(req,res)=>{
+        var name = req.query.q;
+        AuthorsSchema.find({name:name},(error,data)=>{
+            if (error){
+                throw error;
+                res.send(error);
+            }else{
+                res.send(data);
+                //console.log(data);
+            }
+        })
+    });
+    
+    const searchAuthorsAPILink = 'http://localhost:3052/searchAuthorsAPI';
+    
+    app.post('/searchAuthors-Edit',(req,res)=>{
+        var name = req.body.name;
+        request(searchAuthorsAPILink+'/?q='+name,(error,response,body)=>{
+            if(error){
+                throw error;
+                res.send(error);
+            }else{
+                var data = JSON.parse(body);
+                res.render('editAuthors',{nav:navlink, title:"Edit Authors",'author':data})
+            }
+        })
+    })
+    
+    //update Books
+app.post('/updateAuthorsAPI/:id',(req,res)=>{
+    var author = req.body;
+    var id = req.params.id;
+    //console.log(req.params);
+    AuthorsSchema.update({_id:id},{$set:{name:author.name,
+        dob:author.dob,
+        country:author.country,
+        otherworks:author.otherworks,
+        src:author.src,
+    }},(error,data)=>{
+        if(error){
+            throw error;
+            res.send (error);
+        }else{
+            res.send('<script>alert("Entry updated!")</script>');
+        }
+    });
+});
+
+//delete Book
+app.post('/deleteBookAPI',(req,res)=>{
+    var title = req.body.title;
+    
+    BooksSchema.remove({Title:title},(error,data)=>{
+        if(error){
+            throw error;
+            res.send (error);
+        }else{
+            res.send('<script>alert("Entry Deleted!")</script>');
+        }
+    });
+});
+
 ////////////////
 app.get('/authors',(req, res)=>{
     res.render('authors',
@@ -493,6 +556,34 @@ app.get('/authorsingle/:id',(req, res)=>{
     res.render('authorsingle',{
         title:'Author', nav:navlink, 'author_single':authors[i]
     })
+});
+
+app.get('/searchForEdit-Authors',(req, res)=>{
+    res.render('searchForEdit-Authors',
+        {
+            nav:navlink, 'title':'Edit Authors'
+        });
+});
+
+app.get('/searchForDelete-Authors',(req, res)=>{
+    res.render('searchForDelete-Authors',
+        {
+            nav:navlink, 'title':'Delete Author'
+        });
+});
+
+//delete Author
+app.post('/deleteAuthorAPI',(req,res)=>{
+    var name = req.body.name;
+    
+    AuthorsSchema.remove({name:name},(error,data)=>{
+        if(error){
+            throw error;
+            res.send (error);
+        }else{
+            res.send('<script>alert("Entry Deleted!")</script>');
+        }
+    });
 });
 
 app.listen(process.env.PORT || 3052,()=>{
