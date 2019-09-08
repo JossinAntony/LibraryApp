@@ -187,7 +187,6 @@ app.post('/logIn',(req, res)=>{
 //save books API
 app.post('/saveBooksAPI',(req,res)=>{
     var details = req.body;
-
     var book = new BooksSchema(details);
     book.save((error, data)=>{
         if(error){
@@ -261,6 +260,25 @@ app.post('/searchBooks-Edit',(req,res)=>{
     })
 })
 
+//update Books
+app.post('/updateBooksAPI/:id',(req,res)=>{
+    var book = req.body;
+    var id = req.params.id;
+    console.log(req.params);
+    BooksSchema.update({_id:id},{$set:{Title:book.Title,
+        Author:book.Author,
+        Publisher:book.Publisher,
+        Year:book.Year,
+        src:book.src,
+    }},(error,data)=>{
+        if(error){
+            throw error;
+            res.send (error);
+        }else{
+            res.send('<script>alert("Entry updated!")</script>');
+        }
+    });
+    });
 // app.get('/',(req,res)=>{
 //     request(retrieveBooksAPILink,(error,response,body)=>{
 //         if(error){
