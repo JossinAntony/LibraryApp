@@ -232,6 +232,35 @@ app.get('/books',(req,res)=>{
     });
 });
 
+
+app.get('/searchBooksAPI',(req,res)=>{
+    var name = req.query.q;
+    BooksSchema.find({Title:name},(error,data)=>{
+        if (error){
+            throw error;
+            res.send(error);
+        }else{
+            res.send(data);
+            //console.log(data);
+        }
+    })
+});
+
+const searchBooksAPILink = 'http://localhost:3052/searchBooksAPI';
+
+app.post('/searchBooks-Edit',(req,res)=>{
+    var title = req.body.title;
+    request(searchBooksAPILink+'/?q='+title,(error,response,body)=>{
+        if(error){
+            throw error;
+            res.send(error);
+        }else{
+            var data = JSON.parse(body);
+            res.render('editbooks',{nav:navlink, title:"Edit Books",'book':data})
+        }
+    })
+})
+
 // app.get('/',(req,res)=>{
 //     request(retrieveBooksAPILink,(error,response,body)=>{
 //         if(error){
@@ -413,8 +442,8 @@ app.get('/editentries',(req, res)=>{
         });
 });
 
-app.get('/editbooks',(req, res)=>{
-    res.render('editbooks',
+app.get('/searchForEdit-Books',(req, res)=>{
+    res.render('searchForEdit-Books',
         {
             nav:navlink, 'title':'Edit Books'
         });
