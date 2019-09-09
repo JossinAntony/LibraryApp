@@ -14,7 +14,7 @@ app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
    //res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200' );
-    // res.setHeader('Access-Control-Allow-Origin', 'https://studentdb1-jossin.herokuapp.com' ); // request origin/ name of app.
+    res.setHeader('Access-Control-Allow-Origin', 'https://libraryapp-express.herokuapp.com' ); // request origin/ name of app.
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -89,7 +89,7 @@ app.post('/saveUserDetailsAPI',(req,res)=>{
 })
 
 //const saveUserDetailsAPILink = "http://localhost:3052/saveUserDetailsAPI";
-const saveUserDetailsAPILink = "http://libraryapp-express.herokuapp.com/saveUserDetailsAPI";
+const saveUserDetailsAPILink = "https://libraryapp-express.herokuapp.com/saveUserDetailsAPI";
 
 //retrieve user from username
 app.get('/retrieveUser',(req,res)=>{
@@ -105,7 +105,7 @@ app.get('/retrieveUser',(req,res)=>{
     })
 })
 //const retrieveUserAPILink = "http://localhost:3052/retrieveUser";
-const retrieveUserAPILink = "http://libraryapp-express.herokuapp.com/retrieveUser";
+const retrieveUserAPILink = "https://libraryapp-express.herokuapp.com/retrieveUser";
 
 //save user details from sign up page
 app.post('/saveUser',(req,res)=>{
@@ -153,7 +153,7 @@ app.get('/logInAPI',(req, res)=>{
     })
 })
 //const logInAPILink = "http://localhost:3052/logInAPI";
-const logInAPILink = "http://libraryapp-express.herokuapp.com/logInAPI";
+const logInAPILink = "https://libraryapp-express.herokuapp.com/logInAPI";
 
 app.post('/logIn',(req, res)=>{
 
@@ -215,7 +215,7 @@ app.get('/retrieveBooksAPI',(req,res)=>{
 
 //apiLink
 //const retrieveBooksAPILink = 'http://localhost:3052/retrieveBooksAPI';
-const retrieveBooksAPILink = 'http://libraryapp-express.herokuapp.com/retrieveBooksAPI';
+const retrieveBooksAPILink = 'https://libraryapp-express.herokuapp.com/retrieveBooksAPI';
 
 
 app.get('/books',(req,res)=>{
@@ -246,7 +246,7 @@ app.get('/searchBooksAPI',(req,res)=>{
 });
 
 //const searchBooksAPILink = 'http://localhost:3052/searchBooksAPI';
-const searchBooksAPILink = 'http://libraryapp-express.herokuapp.com/searchBooksAPI';
+const searchBooksAPILink = 'https://libraryapp-express.herokuapp.com/searchBooksAPI';
 
 app.post('/searchBooks-Edit',(req,res)=>{
     var title = req.body.title;
@@ -342,7 +342,7 @@ app.get('/retrieveSingleBookAPI',(req,res)=>{
 app.get('/retrieveSingleBook/:id',(req,res)=>{
     var item = req.params.id;
    // const retrieveSingleBookAPILink = 'http://localhost:3052/retrieveSingleBookAPI/?q='+ item;
-    const retrieveSingleBookAPILink = 'http://libraryapp-express.herokuapp.com/retrieveSingleBookAPI/?q='+ item;
+    const retrieveSingleBookAPILink = 'https://libraryapp-express.herokuapp.com/retrieveSingleBookAPI/?q='+ item;
     request(retrieveSingleBookAPILink,(error,response,body)=>{
         if(error){
             throw error;
@@ -398,7 +398,7 @@ res.render('booksingle',{title:"Books",nav:navlink, 'book_single':data});
     //apiLink
     
    //const retrieveAuthorsAPILink = 'http://localhost:3052/retrieveAuthorsAPI';
-    const retrieveAuthorsAPILink = 'http://libraryapp-express.herokuapp.com/retrieveAuthorsAPI';
+    const retrieveAuthorsAPILink = 'https://libraryapp-express.herokuapp.com/retrieveAuthorsAPI';
     
     app.get('/authors',(req,res)=>{
         request(retrieveAuthorsAPILink,(error,response,body)=>{
@@ -429,7 +429,7 @@ res.render('booksingle',{title:"Books",nav:navlink, 'book_single':data});
     });
     
     //const retrieveSingleAuthorAPILink = 'http://localhost:3052/retrieveSingleAuthorAPI';
-    const retrieveSingleAuthorAPILink = 'http://libraryapp-express.herokuapp.com/retrieveSingleAuthorAPI';
+    const retrieveSingleAuthorAPILink = 'https://libraryapp-express.herokuapp.com/retrieveSingleAuthorAPI';
 
     //Retrieve single author function
     app.get('/retrieveSingleAuthor/:q',(req, res)=>{
@@ -461,7 +461,7 @@ res.render('booksingle',{title:"Books",nav:navlink, 'book_single':data});
     });
     
     //const searchAuthorsAPILink = 'http://localhost:3052/searchAuthorsAPI';
-    const searchAuthorsAPILink = 'http://libraryapp-express.herokuapp.com/searchAuthorsAPI';
+    const searchAuthorsAPILink = 'https://libraryapp-express.herokuapp.com/searchAuthorsAPI';
     
     app.post('/searchAuthors-Edit',(req,res)=>{
         var name = req.body.name;
