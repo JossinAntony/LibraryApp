@@ -414,7 +414,6 @@ res.render('booksingle',{title:"Books",nav:navlink, 'book_single':data});
     });
 
     //Retrieve single author API
-
     app.get('/retrieveSingleAuthorAPI',(req,res)=>{
         var id = req.query.q;
         console.log(id);
@@ -434,7 +433,7 @@ res.render('booksingle',{title:"Books",nav:navlink, 'book_single':data});
     //Retrieve single author function
     app.get('/retrieveSingleAuthor/:q',(req, res)=>{
         var id = req.params.q;
-        request(retrieveSingleAuthorAPILink+"/?q="+id,(error, response, body)=>{
+        request(retrieveSingleAuthorAPILink+'/?q='+id,(error, response, body)=>{
             if(error){
                 throw error;
                 res.send(error);
