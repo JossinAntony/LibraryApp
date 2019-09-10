@@ -136,7 +136,7 @@ app.post('/saveUser',(req,res)=>{
         }else{
             res.send("<script>alert('username taken!')</script><script>window.location.href='/signup'</script>");
         }
-    }); 
+    });
 });
 
 app.get('/logInAPI',(req, res)=>{
@@ -159,7 +159,7 @@ app.post('/logIn',(req, res)=>{
 
     var username = req.body.uname;
     var pwd = req.body.upass;
-    request(logInAPILink+"/?uname="+username+"&upass="+pwd,(error,response,data)=>{ 
+    request(logInAPILink+"/?uname="+username+"&upass="+pwd,(error,response,data)=>{
         if(data.length <= 0){
                     res.send("<script>alert('username not found, please sign up!')</script><script>window.location.href='/signup'</script>");
                 }else{
@@ -254,8 +254,12 @@ app.post('/searchBooks-Edit',(req,res)=>{
         if(error){
             throw error;
             res.send(error);
-        }else{
+        }else if (JSON.parse(body).length <= 0){
+             res.send("<script>alert('searched book does not exist in library !')</script>") ;
+        }
+        else{
             var data = JSON.parse(body);
+            console.log(data);
             res.render('editbooks',{nav:navlink, title:"Edit Books",'book':data})
         }
     })
@@ -284,7 +288,7 @@ app.post('/updateBooksAPI/:id',(req,res)=>{
 //delete Book
 app.post('/deleteBookAPI',(req,res)=>{
     var title = req.body.title;
-    
+
     BooksSchema.remove({Title:title},(error,data)=>{
         if(error){
             throw error;
@@ -327,7 +331,7 @@ app.get('/signup',(req,res)=>{
 //Define single book retrievel API
 app.get('/retrieveSingleBookAPI',(req,res)=>{
     var id = req.query.q;
-    BooksSchema.find({_id:id},(error,data)=>{  
+    BooksSchema.find({_id:id},(error,data)=>{
         if(error){
             throw error;
         }else{
@@ -364,8 +368,8 @@ res.render('booksingle',{title:"Books",nav:navlink, 'book_single':data});
         otherworks:String,
         src:String
         });
-    
-    
+
+
     //save authors API
     app.post('/saveAuthorsAPI',(req,res)=>{
         var details = req.body;
@@ -381,7 +385,7 @@ res.render('booksingle',{title:"Books",nav:navlink, 'book_single':data});
             }
         })
     });
-    
+
     //retrieve authors API
     app.get('/retrieveAuthorsAPI',(req,res)=>{
         var retrieve = AuthorsSchema.find((error,data)=>{
@@ -394,12 +398,12 @@ res.render('booksingle',{title:"Books",nav:navlink, 'book_single':data});
             }
         })
     })
-    
+
     //apiLink
-    
+
    //const retrieveAuthorsAPILink = 'http://localhost:3052/retrieveAuthorsAPI';
     const retrieveAuthorsAPILink = 'https://libraryapp-express.herokuapp.com/retrieveAuthorsAPI';
-    
+
     app.get('/authors',(req,res)=>{
         request(retrieveAuthorsAPILink,(error,response,body)=>{
             if(error){
@@ -426,7 +430,7 @@ res.render('booksingle',{title:"Books",nav:navlink, 'book_single':data});
             }
         })
     });
-    
+
     //const retrieveSingleAuthorAPILink = 'http://localhost:3052/retrieveSingleAuthorAPI';
     const retrieveSingleAuthorAPILink = 'https://libraryapp-express.herokuapp.com/retrieveSingleAuthorAPI';
 
@@ -458,10 +462,10 @@ res.render('booksingle',{title:"Books",nav:navlink, 'book_single':data});
             }
         })
     });
-    
+
     //const searchAuthorsAPILink = 'http://localhost:3052/searchAuthorsAPI';
     const searchAuthorsAPILink = 'https://libraryapp-express.herokuapp.com/searchAuthorsAPI';
-    
+
     app.post('/searchAuthors-Edit',(req,res)=>{
         var name = req.body.name;
         request(searchAuthorsAPILink+'/?q='+name,(error,response,body)=>{
@@ -474,7 +478,7 @@ res.render('booksingle',{title:"Books",nav:navlink, 'book_single':data});
             }
         })
     })
-    
+
     //update Books
 app.post('/updateAuthorsAPI/:id',(req,res)=>{
     var author = req.body;
@@ -498,7 +502,7 @@ app.post('/updateAuthorsAPI/:id',(req,res)=>{
 //delete Book
 app.post('/deleteBookAPI',(req,res)=>{
     var title = req.body.title;
-    
+
     BooksSchema.remove({Title:title},(error,data)=>{
         if(error){
             throw error;
@@ -576,7 +580,7 @@ app.get('/searchForDelete-Authors',(req, res)=>{
 //delete Author
 app.post('/deleteAuthorAPI',(req,res)=>{
     var name = req.body.name;
-    
+
     AuthorsSchema.remove({name:name},(error,data)=>{
         if(error){
             throw error;
