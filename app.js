@@ -159,42 +159,39 @@ app.get('/searchLogInCredentialsAPI',(req,res)=>{
     var username = req.query.username;
     var pwd = req.query.pwd;
     userSchema.find({$and:[{uname:username},{upass:pwd}]},(error,response)=>{
-        if(error)
-        {
+        if(error){
             throw error;
             res.send(error);
         }
-        else
-        {
+        else{
             if (response.length <= 0 ){
-                res.send("no access");
+                res.send({message:'no access'});
             }else {
-                res.send("access");
+                res.send({message:'access'});
             }
         }
-})
+    })
 });
 
 //const searchLogInCredentialsAPILink = "http://localhost:3052/searchLogInCredentialsAPI";
 const searchLogInCredentialsAPILink = "https://libraryapp-express.herokuapp.com/searchLogInCredentialsAPI";
 
 app.post('/logIn',(req, res)=>{
-        var username = req.body.uname;
-        var pwd = req.body.upass;
-        request(searchLogInCredentialsAPILink+"/?username="+username+"&pwd="+pwd, (error,response, body)=>{
-            if (error){
-                throw error;
+    var username = req.body.uname;
+    var pwd = req.body.upass;
+    request(searchLogInCredentialsAPILink+"/?username="+username+"&pwd="+pwd, (error,response, body)=>{
+        accessright = JSON.parse(body).message;
+        if (error){
+            throw error;
+        }else {
+            if (accessright === "access"){
+                res.send("<script></script><script>window.location.href='/books'</script>");
             }else {
-                if (body === "access"){
-                    res.send("<script></script><script>window.location.href='/books'</script>");
-                }else {
-                    res.send("<script>alert('username or password incorrect, please try again!')</script><script>window.location.href='/login'</script>");
-                }
+                res.send("<script>alert('username or password incorrect, please try again!')</script><script>window.location.href='/login'</script>");
             }
-        });
+        }
     });
-
-
+});
 
 // var loginCredentials = [];
 // var accessInfo = '';
