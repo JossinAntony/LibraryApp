@@ -155,34 +155,91 @@ app.get('/logInAPI',(req, res)=>{
 //const logInAPILink = "http://localhost:3052/logInAPI";
 const logInAPILink = "https://libraryapp-express.herokuapp.com/logInAPI";
 
-app.post('/logIn',(req, res)=>{
-
-    var username = req.body.uname;
-    var pwd = req.body.upass;
-    request(logInAPILink+"/?uname="+username+"&upass="+pwd,(error,response,data)=>{
-        if(data.length <= 0){
-                    res.send("<script>alert('username not found, please sign up!')</script><script>window.location.href='/signup'</script>");
-                }else{
-                    var result = userSchema.find({$and:[{uname:username},{upass:pwd}]},(error,response)=>{
-                        if(error)
-                        {
-                            throw error;
-                            res.send(error);
-                        }
-                        else
-                        {
-                        var userInfo = (response);
-                        }
-
-                        if(userInfo.length <= 0){
-                            res.send("<script>alert('username and password do not match, please try again!')</script><script>window.location.href='/login'</script>");
-                        }else{
-                            res.send("<script></script><script>window.location.href='/books'</script>");
-                        }
-                })
+app.get('/searchLogInCredentialsAPI',(req,res)=>{
+    var username = req.query.username;
+    var pwd = req.query.pwd;
+    userSchema.find({$and:[{uname:username},{upass:pwd}]},(error,response)=>{
+        if(error)
+        {
+            throw error;
+            res.send(error);
+        }
+        else
+        {
+            if (response.length <= 0 ){
+                res.send("no access");
+            }else {
+                res.send("access");
             }
-    })
-    })
+        }
+})
+});
+
+const searchLogInCredentialsAPILink = "http://localhost:3052/searchLogInCredentialsAPI";
+//const searchLogInCredentialsAPILink = "https://libraryapp-express.herokuapp.com/searchLogInCredentialsAPI";
+
+app.post('/logIn',(req, res)=>{
+        var username = req.body.uname;
+        var pwd = req.body.upass;
+        request(searchLogInCredentialsAPILink+"/?username="+username+"&pwd="+pwd, (error,response, body)=>{
+            if (error){
+                throw error;
+            }else {
+                if (body === "access"){
+                    res.send("<script></script><script>window.location.href='/books'</script>");
+                }else {
+                    res.send("<script>alert('username or password incorrect, please try again!')</script><script>window.location.href='/login'</script>");
+                }
+            }
+        });
+    });
+
+
+
+// var loginCredentials = [];
+// var accessInfo = '';
+
+// app.post('/logIn',(req, res)=>{
+//     var username = req.body.uname;
+//     var pwd = req.body.upass;
+//     request(logInAPILink+"/?uname="+username+"&upass="+pwd,(error,response,data)=>{
+//         console.log(data);
+//         loginCredentials = data;
+//     });
+//     if(data.length <= 0){
+//          res.send("<script>alert('username not found, please sign up!')</script><script>window.location.href='/signup'</script>");
+//     } else {
+//         request(searchLogInCredentialsAPILink+"/?username="+username+"&pwd="+pwd, (error, response, body)=>{
+//             console.log(body);
+//             accessInfo = body
+//         });
+//             if (body == "access"){
+//                 res.send("<script></script><script>window.location.href='/books'</script>");
+//             }else {
+//                 res.send("<script>alert('username and password do not match, please try again!')</script><script>window.location.href='/login'</script>");
+//             }
+        
+//         }
+    
+// });
+    // var result = userSchema.find({$and:[{uname:username},{upass:pwd}]},(error,response)=>{
+        //     if(error)
+        //     {
+        //         throw error;
+        //         res.send(error);
+        //     }
+        //     else
+        //     {
+        //     var userInfo = (response);
+        //     }
+        // if(userInfo.length <= 0){
+        //     res.send("<script>alert('username and password do not match, please try again!')</script><script>window.location.href='/login'</script>");
+        // }else{
+        //     res.send("<script></script><script>window.location.href='/books'</script>");
+        // }
+        // }
+
+  
 
 //save books API
 app.post('/saveBooksAPI',(req,res)=>{
