@@ -360,7 +360,7 @@ app.post('/updateBooksAPI/:id',(req,res)=>{
 
 //delete Book
 app.post('/deleteBookAPI',(req,res)=>{
-    var title = req.body.title;
+    var title = req.body.Title;
     BooksSchema.remove({Title:title},(error,data)=>{
         if(error){
             throw error;
