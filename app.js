@@ -366,14 +366,11 @@ app.post('/deleteBookAPI',(req,res)=>{
             throw error;
             res.send (error);
         }else{
-            if (data.length > 0){
-                res.send({message:'delete ok'});
-                res.send({message:title});
-                res.send({message:data});
-            }
+            res.send({message:'delete ok'});
         }
     });
 });
+
 // app.get('/',(req,res)=>{
 //     request(retrieveBooksAPILink,(error,response,body)=>{
 //         if(error){
@@ -575,19 +572,7 @@ app.post('/updateAuthorsAPI/:id',(req,res)=>{
     });
 });
 
-//delete Book
-app.post('/deleteBookAPI',(req,res)=>{
-    var title = req.body.title;
 
-    BooksSchema.remove({Title:title},(error,data)=>{
-        if(error){
-            throw error;
-            res.send (error);
-        }else{
-            res.send('<script>alert("Entry Deleted!")</script>');
-        }
-    });
-});
 
 ////////////////
 app.get('/authors',(req, res)=>{
