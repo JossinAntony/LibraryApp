@@ -334,7 +334,7 @@ app.post('/updateBooksAPI/:id',(req,res)=>{
             throw error;
             res.send (error);
         }else{
-           // res.send('<script>alert("Entry updated!")</script>');
+            res.send({message:'update ok'});
         }
     });
 });
