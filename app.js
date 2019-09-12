@@ -339,25 +339,6 @@ app.post('/updateBooksAPI/:id',(req,res)=>{
     });
 });
 
-app.post('/updateBooksAPI/:id',(req,res)=>{
-    var book = req.body;
-    var id = req.params.id;
-    console.log(req.params);
-    BooksSchema.update({_id:id},{$set:{Title:book.Title,
-        Author:book.Author,
-        Publisher:book.Publisher,
-        Year:book.Year,
-        src:book.src,
-    }},(error,data)=>{
-        if(error){
-            throw error;
-            res.send (error);
-        }else{
-            res.send('<script>alert("Entry updated!")</script>');
-        }
-    });
-});
-
 //delete Book
 app.post('/deleteBookAPI',(req,res)=>{
     var title = req.body.Title;
@@ -493,7 +474,7 @@ res.render('booksingle',{title:"Books",nav:navlink, 'book_single':data});
     //Retrieve single author API
     app.get('/retrieveSingleAuthorAPI',(req,res)=>{
         var id = req.query.q;
-        console.log(id);
+        //console.log(id);
         AuthorsSchema.find({_id:id},(error,data)=>{
             if(error){
                 throw error;
@@ -552,7 +533,7 @@ res.render('booksingle',{title:"Books",nav:navlink, 'book_single':data});
         })
     })
 
-    //update Books
+    //update Authors
 app.post('/updateAuthorsAPI/:id',(req,res)=>{
     var author = req.body;
     var id = req.params.id;
@@ -567,7 +548,7 @@ app.post('/updateAuthorsAPI/:id',(req,res)=>{
             throw error;
             res.send (error);
         }else{
-            res.send('<script>alert("Entry updated!")</script>');
+            res.send({message:'update ok'});
         }
     });
 });
