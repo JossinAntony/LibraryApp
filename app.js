@@ -622,13 +622,12 @@ app.get('/searchForDelete-Authors',(req, res)=>{
 //delete Author
 app.post('/deleteAuthorAPI',(req,res)=>{
     var name = req.body.name;
-
     AuthorsSchema.remove({name:name},(error,data)=>{
         if(error){
             throw error;
             res.send (error);
         }else{
-            res.send('<script>alert("Entry Deleted!")</script>');
+            res.send({message:'delete ok'});
         }
     });
 });
