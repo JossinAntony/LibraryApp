@@ -366,10 +366,11 @@ app.post('/deleteBookAPI',(req,res)=>{
             throw error;
             res.send (error);
         }else{
-            console.log(data);
-            //res.send({message:'delete ok'});
-            res.send({message:title});
-            res.send({message:data});
+            if (data.length > 0){
+                res.send({message:'delete ok'});
+                res.send({message:title});
+                res.send({message:data});
+            }
         }
     });
 });
