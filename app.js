@@ -334,6 +334,25 @@ app.post('/updateBooksAPI/:id',(req,res)=>{
             throw error;
             res.send (error);
         }else{
+           // res.send('<script>alert("Entry updated!")</script>');
+        }
+    });
+});
+
+app.post('/updateBooksAPI/:id',(req,res)=>{
+    var book = req.body;
+    var id = req.params.id;
+    console.log(req.params);
+    BooksSchema.update({_id:id},{$set:{Title:book.Title,
+        Author:book.Author,
+        Publisher:book.Publisher,
+        Year:book.Year,
+        src:book.src,
+    }},(error,data)=>{
+        if(error){
+            throw error;
+            res.send (error);
+        }else{
             res.send('<script>alert("Entry updated!")</script>');
         }
     });
