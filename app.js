@@ -368,6 +368,7 @@ app.post('/deleteBookAPI',(req,res)=>{
         }else{
             console.log(data);
             //res.send({message:'delete ok'});
+            res.send({message:title});
             res.send({message:data});
         }
     });
